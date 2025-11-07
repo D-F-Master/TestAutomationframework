@@ -10,11 +10,15 @@ application:
 #数据库配置
 database:
   # 数据库主机地址
-  host: "192.168.31.10"
+  host: "localhost"
   # 数据库端口号
-  port: "5432"
+  port: "3306"
   # 数据库用户名
-  username: "admin"
+  user: "root"
   # 数据库密码
   password: "2002"
+  # 数据库名
+  database: 'green_mall_batabase'
+  # 编码
+  charset: 'utf8mb4'
 

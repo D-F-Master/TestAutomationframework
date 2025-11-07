@@ -1,3 +1,4 @@
+import pymysql
 import requests
 import pytest
 
@@ -5,18 +6,25 @@ from utils import http_client
 from utils.read_excel import read_excel
 from jsonpath_ng import parse
 
+# 自动执行test_data
 class Test_Automation:
+    # 调用read_excel()读取data文件空间下的表格
     data = read_excel()
 
+    # 创建全局变量all
     all = {}
 
+    # 数据驱动装饰器
     @pytest.mark.parametrize('case', data)
     def test_automation(self,case):
-        # 提取数据
+
+        # 引入全局变量
+        all = self.all
+
+        # 提取每行的数据发起请求
         method = case['method']
         url = http_client.base_url + case['path']
-        # 三元运算，如果是字符串就转换为字典，否则为空
-        headers = eval(case['headers']) if isinstance(case['headers'], str)else None
+        headers = eval(case['headers']) if isinstance(case['headers'], str)else None  #三元运算府  条件成立执行 if 条件 else 条件不成立执行
         params = eval(case['params']) if isinstance(case['params'], str)else None
         data = eval(case["data"]) if isinstance(case["data"], str) else None
         json = eval(case["json"]) if isinstance(case["json"], str) else None
@@ -33,30 +41,104 @@ class Test_Automation:
             "files": files
         }
 
-        # 解包请求数据
-        response = requests.request(**request_data)
+        # 发起请求
+        response = requests.request(**request_data)  #..request_data 解包操作 把字典解包为请求
 
-        # assert response.json()['code'] == case['expected']
-        # 如果check字段不为空，就判断实际校验字段与预期结构，否则就判断预期结构是否包含在实际结果中
-        # 如果check字段不为空，表示需要使用JSONPath进行精确字段校验
+
+        # 如果case["check"]存在，表格中check字段为json表达式
         if case["check"]:
-            # 使用jsonpath_ng的parse函数解析check字段中的JSONPath表达式
-            # 并在响应JSON数据中查找匹配的字段
-            matches = parse(case["check"]).find(response.json())
-
-            # 如果找到了匹配的字段
-            if matches:
-                # 断言第一个匹配项的值等于预期值
-                assert matches[0].value == case["expected"]
-            else:
-                # 如果没有找到匹配项，则抛出断言错误
-                raise AssertionError(f"JSONPath '{case['check']}' not found in response")
+            # 判断json表达式的值是否等于预期
+            assert parse(case["check"]).find(response.json())[0].value == case["expected"]
         else:
-            # 如果check字段为空，则使用简单的包含性检查
-            # 断言预期值包含在响应JSON中
+            # 判断预期是否存在与返回值中
             assert case["expected"] in response.json()
 
-
-        # 数据库断言，对数据库的内容进行断言判断
+        # 数据库断言，对表格中的数据库请求进行断言判断。sql_check为sql语句，sql_expected为预期值
         if case['sql_check'] and case['sql_expected']:
+            # 数据库连接配置
+            config = {
+                'host': http_client.host,
+                'port': int(http_client.port),  # 确保端口为整数类型
+                'user': http_client.user,
+                'password': http_client.password,
+                'database': http_client.database,
+                'charset': http_client.charset
+            }
+
+            connection = None  # 初始化变量
+            cursor = None  # 初始化变量
+
+            try:
+                # 建立连接
+                connection = pymysql.connect(**config)
+                # 创建存在光标
+                cursor = connection.cursor()
+                # 光标执行查询
+                cursor.execute(case['sql_check'])
+                # 返回结果
+                result = cursor.fetchone()
+                # 对结果进行断言
+                assert result[0] == case['sql_expected']
+
+            except Exception as e:
+                print("数据库操作出错:", e)
+
+            finally:
+                # 关闭连接
+                if cursor:
+                    cursor.close()
+                if connection:
+                    connection.close()
+
+
+
+        # json提取 例:{"TOKEN":"$..token"} 通过value的json表达式，从请求结果中提取数据通过键值对的方法存入全局变量all中
+        if case['jsonExData']:
+            # 将jsonExData转变为字典,进行遍历
+            for key,value in eval(case['jsonExData']).items():
+                value = parse(value).find(response.json())[0].value
+                all[key] = value
+                pass
+
+
+
+        # SQL提取，格式{"id":"select id from employee where username = 'admin'"}
+        if case['sqlExData']:
+            for key, value in eval(case['sqlExData']).items():
+
+                # 数据库连接配置
+                config = {
+                    'host': http_client.host,
+                    'port': int(http_client.port),  # 确保端口为整数类型
+                    'user': http_client.user,
+                    'password': http_client.password,
+                    'database': http_client.database,
+                    'charset': http_client.charset
+                }
+
+                connection = None  # 初始化变量
+                cursor = None  # 初始化变量
+
+                try:
+                    # 建立连接
+                    connection = pymysql.connect(**config)
+                    # 创建存在光标
+                    cursor = connection.cursor()
+                    # 光标执行查询
+                    cursor.execute(value)
+                    # 返回结果
+                    result = cursor.fetchone()
+                    # 写入全局变量
+                    all[key]= result[0]
+
+                except Exception as e:
+                    print("数据库操作出错:", e)
+
+                finally:
+                    # 关闭连接
+                    if cursor:
+                        cursor.close()
+                    if connection:
+                        connection.close()
+
 
