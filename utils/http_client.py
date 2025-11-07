@@ -12,9 +12,11 @@ with open(_config_path, 'r', encoding='utf-8') as config:
 base_url = _data['application']['base_url']
 
 
-def get(url, token = None, params=None):
-    return requests.get(base_url + url, params=params, headers={'token': token})
+def get(url, token=None, params=None):
+        response = requests.get(base_url + url, params=params, headers={'token': token})
+        return response
 
 
-def post(url, token = None, json=None):
-    return requests.post(base_url + url, json=json, headers={'token': token})
+def post(url, token=None, json=None):
+        response = requests.post(base_url + url, json=json, headers={'token': token})
+        return response
