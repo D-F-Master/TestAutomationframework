@@ -2,7 +2,7 @@ import openpyxl
 
 def read_excel():
     # 加载Excel工作簿
-    workbook = openpyxl.load_workbook('../data/test_data.xlsx')
+    workbook = openpyxl.load_workbook('./data/test_data.xlsx')
     # 选择第一个工作表Sheet1
     worksheet = workbook['Sheet1']
 
