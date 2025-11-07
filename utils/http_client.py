@@ -10,7 +10,8 @@ with open(_config_path, 'r', encoding='utf-8') as config:
     _data = yaml.safe_load(config)
 
 base_url = _data['application']['base_url']
-
+reruns = _data['application']['reruns']
+reruns_delay = _data['application']['reruns-delay']
 
 def get(url, token=None, params=None):
         response = requests.get(base_url + url, params=params, headers={'token': token})
