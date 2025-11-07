@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1c14754-0521-401c-857a-77c9ab73481b" name="更改" comment="加上自动执行测试">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testcases/test_automation.py" beforeDir="false" afterPath="$PROJECT_DIR$/testcases/test_automation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testcases/test_plant.py" beforeDir="false" afterPath="$PROJECT_DIR$/testcases/test_plant.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/read_excel.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/read_excel.py" afterDir="false" />
-    </list>
+    <list default="true" id="b1c14754-0521-401c-857a-77c9ab73481b" name="更改" comment="自动读取excel文件,执行用例" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -117,7 +112,7 @@
       <option name="presentableId" value="Default" />
       <updated>1762493447981</updated>
       <workItem from="1762493449004" duration="7981000" />
-      <workItem from="1762508126324" duration="3948000" />
+      <workItem from="1762508126324" duration="4232000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -183,7 +178,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762509065071</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="自动读取excel文件,执行用例">
+      <option name="closed" value="true" />
+      <created>1762512337997</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1762512337998</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -194,10 +197,11 @@
     <MESSAGE value="25年11月7日" />
     <MESSAGE value="添加示例" />
     <MESSAGE value="加上自动执行测试" />
-    <option name="LAST_COMMIT_MESSAGE" value="加上自动执行测试" />
+    <MESSAGE value="自动读取excel文件,执行用例" />
+    <option name="LAST_COMMIT_MESSAGE" value="自动读取excel文件,执行用例" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/TestAutomationframework$main.coverage" NAME="main 覆盖结果" MODIFIED="1762512067109" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/TestAutomationframework$main.coverage" NAME="main 覆盖结果" MODIFIED="1762512101193" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/TestAutomationframework$read_excel.coverage" NAME="read_excel 覆盖结果" MODIFIED="1762508377575" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
     <SUITE FILE_PATH="coverage/TestAutomationframework$test_plant.coverage" NAME="test_plant 覆盖结果" MODIFIED="1762497209583" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/testcases" />
   </component>
