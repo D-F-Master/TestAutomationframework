@@ -1,10 +1,13 @@
 import openpyxl
 
-def read_excel():
+from config.config import *
+
+
+def read_excel(file_path = TEST_DATA_FILE_PATH,sheet_name = TEST_DATA_SHEET_NAME):
     # 加载Excel工作簿
-    workbook = openpyxl.load_workbook('./data/test_data.xlsx')
+    workbook = openpyxl.load_workbook(file_path)
     # 选择第一个工作表Sheet1
-    worksheet = workbook['Sheet1']
+    worksheet = workbook[sheet_name]
 
     # 创建空列表用于存储数据
     data = []

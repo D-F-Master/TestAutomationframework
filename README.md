@@ -2,7 +2,8 @@
 
 ## 使用方法
 
-`python main.py`
+1. 执行`pip install-r requirements.txt`下载依赖包
+2. 执行`python main.py`启动测试
 
 执行main.py文件即可，若是需要修改用例，在data文件夹下的test_data添加上用例即可。
 
@@ -37,6 +38,10 @@ database:
 ```
 
 ## test_data字段说明
+
+
+
+## utils工具类说明
 
 
 
