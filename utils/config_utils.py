@@ -1,4 +1,3 @@
-import requests
 import yaml
 import os
 
@@ -24,13 +23,3 @@ password = _data['database']['password']
 database = _data['database']['database']
 # 编码
 charset =  _data['database']['charset']
-
-
-def get(url, token=None, params=None):
-        response = requests.get(base_url + url, params=params, headers={'token': token})
-        return response
-
-
-def post(url, token=None, json=None):
-        response = requests.post(base_url + url, json=json, headers={'token': token})
-        return response

@@ -1,8 +1,11 @@
 import pymysql
 import requests
 import pytest
+from jinja2 import Template
 
-from utils import http_client
+from utils import config_utils
+from utils.allure_utils import allure_init
+from utils.analyse_case_utils import analyse_case
 from utils.read_excel import read_excel
 from jsonpath_ng import parse
 
@@ -21,29 +24,17 @@ class Test_Automation:
         # 引入全局变量
         all = self.all
 
-        # 提取每行的数据发起请求
-        method = case['method']
-        url = http_client.base_url + case['path']
-        headers = eval(case['headers']) if isinstance(case['headers'], str)else None  #三元运算府  条件成立执行 if 条件 else 条件不成立执行
-        params = eval(case['params']) if isinstance(case['params'], str)else None
-        data = eval(case["data"]) if isinstance(case["data"], str) else None
-        json = eval(case["json"]) if isinstance(case["json"], str) else None
-        files = eval(case["files"]) if isinstance(case["files"], str) else None
+        # 应用全局变量，使用jinja2进行渲染
+        case = eval(Template(str(case)).render(all))
 
-        # 创建请求数据字典
-        request_data = {
-            "method": method,
-            "url": url,
-            "headers": headers,
-            "params": params,
-            "data": data,
-            "json": json,
-            "files": files
-        }
+        #初始化allure
+        allure_init(case = case)
+
+        # 解析case并创建请求数据字典
+        request_data = analyse_case(case)
 
         # 发起请求
         response = requests.request(**request_data)  #..request_data 解包操作 把字典解包为请求
-
 
         # 如果case["check"]存在，表格中check字段为json表达式
         if case["check"]:
@@ -57,12 +48,12 @@ class Test_Automation:
         if case['sql_check'] and case['sql_expected']:
             # 数据库连接配置
             config = {
-                'host': http_client.host,
-                'port': int(http_client.port),  # 确保端口为整数类型
-                'user': http_client.user,
-                'password': http_client.password,
-                'database': http_client.database,
-                'charset': http_client.charset
+                'host': config_utils.host,
+                'port': int(config_utils.port),  # 确保端口为整数类型
+                'user': config_utils.user,
+                'password': config_utils.password,
+                'database': config_utils.database,
+                'charset': config_utils.charset
             }
 
             connection = None  # 初始化变量
@@ -108,12 +99,12 @@ class Test_Automation:
 
                 # 数据库连接配置
                 config = {
-                    'host': http_client.host,
-                    'port': int(http_client.port),  # 确保端口为整数类型
-                    'user': http_client.user,
-                    'password': http_client.password,
-                    'database': http_client.database,
-                    'charset': http_client.charset
+                    'host': config_utils.host,
+                    'port': int(config_utils.port),  # 确保端口为整数类型
+                    'user': config_utils.user,
+                    'password': config_utils.password,
+                    'database': config_utils.database,
+                    'charset': config_utils.charset
                 }
 
                 connection = None  # 初始化变量
