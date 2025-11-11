@@ -45,6 +45,14 @@ database:
 
 
 
+## ocr验证码识别功能
+
+示例：{'password':'admin','username':'1000@admin','sn':'{{SN}}','captcha':dddd_ocr_text('{{IMAGE}}')}
+
+方法名dddd_ocr_text传入base64格式的图片数据
+
+
+
 ## 项目根目录 
 
 ├── data                  # 用于保存 Excel 格式的测试用例 
