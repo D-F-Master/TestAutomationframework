@@ -28,6 +28,9 @@ def analyse_case(case):
         "files": files
     }
 
-    logging.info(f"1.请求数据解析:{request_data}")
-    allure.attach(f"{request_data}", name = '数据解析结果')
+    # 日志
+    logging.info(f"用例数据:{request_data}")
+
+    allure.attach(f"{request_data}", name = '用例数据')
+
     return request_data

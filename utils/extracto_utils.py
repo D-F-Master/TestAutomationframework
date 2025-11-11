@@ -17,17 +17,18 @@ def sql_extracto(case, all):
     if case['sqlExData']:
         sql_extracto_execute(case, all)
 
-@allure.step('4.JSON提取')
+@allure.step('JSON提取')
 def json_extracto_execute(case, response, all):
     # 将jsonExData转变为字典,进行遍历
     for key, value in eval(case['jsonExData']).items():
         value = parse(value).find(response.json())[0].value
         all[key] = value
-    logging.info(f"4.JSON提取,根据{case['jsonExData']}提取，此时的全局变量ALL为{all}")
+    logging.info(f"JSON提取,jsonExData: {case['jsonExData']} 全局变量ALL为 {all}")
 
 
-@allure.step('4.SQL提取')
+@allure.step('SQL提取')
 def sql_extracto_execute(case, all):
+    logging.info(f"SQL提取,sqlExData: {case['sqlExData']} ")
     for key, value in eval(case['sqlExData']).items():
         all[key] = send_sql_request(value)
-    logging.info(f"4.SQL提取，根据{case['sqlExData']}提取，此时的全局变量ALL为{all}")
+    logging.info(f"全局变量ALL为{all}")

@@ -1,5 +1,8 @@
 # 基础URL配置
-BASE_URL = "http://192.168.10.141/api/cloud-api"
+BASE_URL = "http://localhost:8080"
+
+# http://localhost:8080/admin/plant/GetPlantAllList
+# http://192.168.10.141/api/cloud-api
 
 # 测试重试配置
 RERUNS = 1

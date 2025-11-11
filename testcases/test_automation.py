@@ -33,9 +33,6 @@ class Test_Automation:
         # 初始化allure
         allure_init(case=case)
 
-        # 记录日志
-        logging.info(f"0.用例ID:{case['id']} 模块:{case['feature']} 场景:{case['story']} 标题:{case['title']}")
-
         # 解析case并创建请求数据字典
         request_data = analyse_case(case)
 

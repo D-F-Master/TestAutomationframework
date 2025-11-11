@@ -11,5 +11,5 @@ if __name__ == '__main__':
     ])
 
     # 调用allure生成报告
-    os.system("allure generate -o report -c temps")
+    # os.system("allure generate -o report -c temps")
 
