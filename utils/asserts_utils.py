@@ -16,7 +16,7 @@ def http_assert(case, response):
     else:
         # 判断预期是否存在与返回值中
         logging.info(f"3.对预期:{case["expected"]}是否存在与{response.json()}进行断言")
-        assert case["expected"] in response.json()
+        assert case["expected"] in response.json(), f'预期与结果不符'
 
 
 def sql_assert(case):
@@ -28,4 +28,5 @@ def sql_assert(case):
 @allure.step("3.对sql请求进行断言")
 def sql_assert_execute(case):
     logging.info(f"3.对预期:{case['sql_check']}是否存在与{case['sql_expected']}进行断言")
-    assert send_sql_request(case['sql_check']) == case['sql_expected']
+    response = send_sql_request(case['sql_check'])
+    assert response == case['sql_expected']

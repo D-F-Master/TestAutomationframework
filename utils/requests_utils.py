@@ -10,7 +10,10 @@ from config.config import *
 @allure.step("2.发送http请求")
 def send_http_request(request_data):
     logging.info(f"2.发送http请求:{request_data}")
-    return requests.request(**request_data)  # ..request_data 解包操作 把字典解包为请求
+    response = requests.request(**request_data)
+    allure.attach(f"{response.json()}", name='http请求返回结果')
+    logging.info(f"http的返回值{response.json()}")
+    return response  # ..request_data 解包操作 把字典解包为请求
 
 
 def send_sql_request(sql, index=0):
@@ -34,8 +37,11 @@ def send_sql_request(sql, index=0):
         cursor = connection.cursor()
         # 光标执行查询
         cursor.execute(sql)
+
         # 返回结果
-        return cursor.fetchone()[index]
+        response = cursor.fetchone()[index]
+        allure.attach(f"{response.json()}", name='sql请求返回结果')
+        return response
 
 
     except Exception as e:

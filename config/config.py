@@ -1,8 +1,8 @@
 # 基础URL配置
-BASE_URL = "http://192.168.31.10:8080"
+BASE_URL = "http://192.168.10.141/api/cloud-api"
 
 # 测试重试配置
-RERUNS = 2
+RERUNS = 1
 RERUNS_DELAY = 1
 
 # 数据库配置

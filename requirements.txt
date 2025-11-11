@@ -5,3 +5,4 @@ pytest
 openpyxl
 allure-pytest
 jinja2
+pytest-rerunfailures

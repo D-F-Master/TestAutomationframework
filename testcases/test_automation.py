@@ -1,4 +1,5 @@
 import logging
+import time
 
 import pytest
 from jinja2 import Template
@@ -8,6 +9,7 @@ from utils.analyse_case_utils import analyse_case
 from utils.asserts_utils import http_assert, sql_assert
 from utils.extracto_utils import json_extracto, sql_extracto
 from utils.read_excel import read_excel
+
 
 from utils.requests_utils import send_http_request
 
@@ -19,7 +21,6 @@ class Test_Automation:
 
     # 创建全局变量all
     all = {}
-
     # 数据驱动装饰器
     @pytest.mark.parametrize('case', data)
     def test_automation(self, case):
@@ -52,3 +53,4 @@ class Test_Automation:
 
         # SQL提取
         sql_extracto(case, all)
+
