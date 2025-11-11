@@ -5,7 +5,7 @@ from utils.ocr_utils import dddd_ocr_text
 
 import allure
 
-@allure.step("1.请求数据解析")
+@allure.step("请求数据解析")
 def analyse_case(case):
 
     # 提取每行的数据发起请求
