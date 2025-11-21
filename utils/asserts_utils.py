@@ -8,16 +8,19 @@ from utils.requests_utils import send_sql_request
 
 @allure.step("对http请求的返回值进行断言")
 def http_assert(case, response):
+    expected = eval(case['expected'])
     # 如果case["check"]存在，表格中check字段为json表达式
     if case["check"]:
-        # 判断json表达式的值是否等于预期
-        logging.info(f"对http请求的返回值进行断言 check: {case["check"]} 是否等于预期 expected: {case["expected"]} 进行断言")
-        assert parse(case["check"]).find(response.json())[0].value == case["expected"]
+        check = eval(case['check'])
+        for check, expected in zip(check,expected):
+            # 判断json表达式的值是否等于预期
+            logging.info(f"http响应断言内容 实际结果: {case["check"]} == 预期结果: {case["expected"]} ")
+            assert parse(check).find(response.json())[0].value == expected
     else:
-        # 判断预期是否存在与返回值中
-        logging.info(f"对http请求的返回值进行断言 check :{case["expected"]} 是否存在与http请求返回值 {response.json()} 进行断言")
-        assert case["expected"] in response.json(), f'预期与结果不符'
-
+        for e in expected:
+            # 判断预期是否存在与返回值中
+            logging.info(f"http响应断言内容 预期结果: {case["check"]} == 实际结果: {response.json()}")
+            assert e in response.json(), f'预期与结果不符'
 
 def sql_assert(case):
     # 数据库断言，对表格中的数据库请求进行断言判断。sql_check为sql语句，sql_expected为预期值

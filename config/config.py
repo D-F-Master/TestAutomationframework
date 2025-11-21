@@ -18,3 +18,6 @@ CHARSET = 'utf8mb4' # 编码格式
 
 TEST_DATA_FILE_PATH = './data/test_data.xlsx'
 TEST_DATA_SHEET_NAME = 'Sheet1'
+
+# 飞书机器人地址
+webhook = 'https://open.feishu.cn/open-apis/bot/v2/hook/0dafa074-8380-4afb-91d2-1b869ce1033c'

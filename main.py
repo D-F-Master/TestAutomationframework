@@ -1,6 +1,6 @@
 import os
 import pytest
-
+from utils import feishuRobot
 from config.config import *
 
 if __name__ == '__main__':
@@ -12,4 +12,6 @@ if __name__ == '__main__':
 
     # 调用allure生成报告
     os.system("allure generate -o report -c temps")
+
+    feishuRobot.send_allura_url()
 
